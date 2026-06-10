@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misión Especial</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0b0f1f,#1e3a8a,#b91c1c);
+    overflow:hidden;
+}
+
+.card{
+    background:rgba(0,0,0,0.8);
+    color:white;
+    width:420px;
+    padding:35px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 25px rgba(255,0,0,0.4);
+    border:2px solid #e11d48;
+}
+
+h1 {
+
+    color: #ff4d4d;
+    margin-bottom: 20px;
+}   
+
+.frase{
+    color:#60a5fa;
+    font-style:italic;
+    margin-bottom:20px;
+}
+
+p{
+    margin:15px 0;
+    line-height:1.6;
+}
+
+button{
+    margin-top:20px;
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:15px 25px;
+    font-size:16px;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 1.5px;
+}
+
+button:hover{
+    transform:scale(1.08);
+    background:#2563eb;
+}
+
+/* 1. Agrega esta animación al final de tu CSS */
+@keyframes balanceo {
+    0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+    50% { transform: translateX(-50%) translateY(12px) rotate(6deg); }
+    100% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+}
+
+/* 2. Modifica tu clase .web para que quede así: */
+.web {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 70px;
+    opacity: 0.3;
+    
+    /* Nuevas propiedades para el movimiento y comportamiento */
+    animation: balanceo 6s ease-in-out infinite;
+    pointer-events: none; /* Evita que estorbe al hacer clics cerca */
+    user-select: none;    /* Evita que se seleccione sin querer */
+}
+</style>
+</head>
+<body>
+
+<div class="web">🕸️</div>
+
+<div class="card">
+
+    <h1>🕷️ Misión especial...</h1>
+
+    <p class="frase">
+    La película ya está lista.
+    </p>
+
+    <p>
+    Y las ganas de compartir esta aventura contigo también. <br>
+    Pero las mejores historias siempre son mejores cuando se viven en compañía. <br>
+
+    Solo falta una cosa para completar la misión...
+    </p>
+
+    <p>
+      Tu respuesta.
+    </p>
+
+    <p>
+        <strong>¿Aceptas acompañarme?</strong>
+    </p>
+
+    <button onclick="window.location.href='pelicula.html'">
+        🕸️ Aceptar misión
+    </button>
+
+</div>
+
+</body>
+</html> 

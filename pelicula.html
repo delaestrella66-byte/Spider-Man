@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="Elige fecha (desde 28 de julio), hora y película de Spider-Man.">
+  <meta name="theme-color" content="#b91c1c">
+  <title>🕷️ Noche de Película – Spider-Verse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --red-spider: #dc2626;
+      --blue-spider: #2563eb;
+      --dark-bg: #0b0f1f;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, var(--dark-bg), #1e3a8a, #b91c1c);
+      font-family: 'Inter', Arial, sans-serif;
+      padding: 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(3px);
+      color: white;
+      max-width: 550px;
+      width: 100%;
+      padding: 2rem;
+      border-radius: 32px;
+      text-align: center;
+      border: 2px solid var(--red-spider);
+      box-shadow: 0 0 30px rgba(220, 38, 38, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeScaleUp 0.5s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 45px rgba(37, 99, 235, 0.5);
+      border-color: var(--blue-spider);
+    }
+
+    @keyframes fadeScaleUp {
+      0% { opacity: 0; transform: scale(0.94); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2rem;
+      color: #ff4d4d;
+      text-shadow: 2px 2px 0px #7f1a1a;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitulo {
+      color: #cbd5e1;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-weight: 600;
+      margin: 0.8rem 0 0.3rem 0;
+      color: #facc15;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 40px;
+      font-size: 1rem;
+      background: #1e293b;
+      color: white;
+      border: 1px solid #475569;
+      transition: all 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--blue-spider);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
+    }
+
+    button {
+      margin-top: 1.8rem;
+      background: linear-gradient(135deg, var(--red-spider), #991b1b);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 1.5px;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, var(--blue-spider), #1e40af);
+      transform: scale(1.02);
+      letter-spacing: 2px;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    #mensaje {
+      margin-top: 1rem;
+      color: #facc15;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .confirmacion {
+      text-align: center;
+    }
+
+    .confirmacion p {
+      margin: 0.8rem 0;
+      line-height: 1.5;
+    }
+
+    .cita-detalle {
+      background: #1e293b;
+      border-radius: 28px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 1.2rem;
+      color: #60a5fa;
+    }
+
+    .emoji-grande {
+      font-size: 50px;
+      margin-top: 0.5rem;
+    }
+
+    /* Botón regresar discreto */
+    .btn-regresar {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      width: auto;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .btn-regresar:hover {
+      color: #facc15;
+      background: none;
+      transform: none;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 1.5rem;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card {
+        animation: none;
+      }
+      button {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" id="appCard">
+  <div id="formularioContainer">
+    <h1>🎬 Entonces... ¿cuándo vemos la película?</h1>
+    <div class="subtitulo">Elige una fecha desde el 28 de julio en adelante 🕷️</div>
+
+    <label for="fecha">📅 Fecha</label>
+    <input type="date" id="fecha" required>
+
+    <label for="hora">⏰ Hora</label>
+    <select id="hora" required>
+      <option value="">Selecciona una hora</option>
+      <option>3:00 PM</option>
+      <option>5:00 PM</option>
+      <option>7:00 PM</option>
+      <option>9:00 PM</option>
+    </select>
+
+    <label for="pelicula">🕷️ Película</label>
+    <select id="pelicula">
+      <option value="Spider-Man: Un nuevo universo">Spider-Man: Brand New Day</option>
+    </select>
+
+    <button id="btnReservar">
+      🕸️ CONFIRMAR MISIÓN
+    </button>
+    <div id="mensaje"></div>
+  </div>
+
+  <div id="confirmacionContainer" style="display: none;"></div>
+</div>
+
+<script>
+  (function() {
+    const formularioDiv = document.getElementById('formularioContainer');
+    const confirmacionDiv = document.getElementById('confirmacionContainer');
+    const btnReservar = document.getElementById('btnReservar');
+    const mensajeDiv = document.getElementById('mensaje');
+    const inputFecha = document.getElementById('fecha');
+    const selectHora = document.getElementById('hora');
+    const selectPelicula = document.getElementById('pelicula');
+
+    // Cambio: fecha mínima ahora es 28 de julio
+    function getMinimumDate() {
+      const hoy = new Date();
+      const añoActual = hoy.getFullYear();
+      const fecha28Julio = new Date(añoActual, 6, 28); // mes 6 = Julio
+      if (hoy <= fecha28Julio) {
+        return fecha28Julio;
+      } else {
+        return new Date(añoActual + 1, 6, 28);
+      }
+    }
+
+    function setMinDate() {
+      const fechaMin = getMinimumDate();
+      const año = fechaMin.getFullYear();
+      const mes = String(fechaMin.getMonth() + 1).padStart(2, '0');
+      const dia = String(fechaMin.getDate()).padStart(2, '0');
+      const fechaMinStr = `${año}-${mes}-${dia}`;
+      inputFecha.setAttribute('min', fechaMinStr);
+      inputFecha.title = `Solo fechas desde el ${dia}/${mes}/${año}`;
+    }
+
+    setMinDate();
+
+    function esFechaValida(fechaStr) {
+      if (!fechaStr) return false;
+      const fechaElegida = new Date(fechaStr);
+      const fechaMin = getMinimumDate();
+      fechaElegida.setHours(0,0,0,0);
+      fechaMin.setHours(0,0,0,0);
+      return fechaElegida >= fechaMin;
+    }
+
+    function volverAlFormulario() {
+      localStorage.removeItem('spiderCita');
+      formularioDiv.style.display = 'block';
+      confirmacionDiv.style.display = 'none';
+      mensajeDiv.innerHTML = '';
+      inputFecha.value = '';
+      selectHora.value = '';
+      selectPelicula.selectedIndex = 0;
+    }
+
+    function mostrarConfirmacion(fecha, hora, pelicula) {
+      formularioDiv.style.display = 'none';
+      confirmacionDiv.style.display = 'block';
+      confirmacionDiv.innerHTML = `
+        <div class="confirmacion">
+          <h1>🕷️ ¡Misión completada!</h1>
+          <p>Gracias por aceptar ❤️  </p>
+          <p><strong>Nuestra noche de película será:</strong></p>
+          <div class="cita-detalle">
+            📅 ${fecha}<br>
+            🕒 ${hora}<br>
+            🎬 ${pelicula}
+          </div>
+          <p>Ahora solo queda disfrutar juntas.❤️</p>
+          <div class="emoji-grande">🕸️🎬🕷️</div>
+          <button id="btnRegresar" class="btn-regresar">◀ Regresar</button>
+        </div>
+      `;
+      document.getElementById('btnRegresar').addEventListener('click', volverAlFormulario);
+    }
+
+    function reservar() {
+      const fecha = inputFecha.value;
+      const hora = selectHora.value;
+      const pelicula = selectPelicula.value;
+
+      if (!fecha || !hora) {
+        mensajeDiv.innerHTML = "⚠️ Completa la fecha y la hora para continuar.";
+        return;
+      }
+
+      if (!esFechaValida(fecha)) {
+        const fechaMin = getMinimumDate();
+        const diaMin = fechaMin.getDate();
+        const mesMin = fechaMin.getMonth() + 1;
+        const añoMin = fechaMin.getFullYear();
+        mensajeDiv.innerHTML = `⚠️ La fecha debe ser a partir del ${diaMin}/${mesMin}/${añoMin}.`;
+        return;
+      }
+
+      const cita = { fecha, hora, pelicula };
+      localStorage.setItem('spiderCita', JSON.stringify(cita));
+
+      if (navigator.vibrate) navigator.vibrate(50);
+
+      mostrarConfirmacion(fecha, hora, pelicula);
+    }
+
+    btnReservar.addEventListener('click', reservar);
+
+    const campos = [inputFecha, selectHora, selectPelicula];
+    campos.forEach(campo => {
+      campo.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') reservar();
+      });
+    });
+
+    function cargarCitaGuardada() {
+      const citaGuardada = localStorage.getItem('spiderCita');
+      if (citaGuardada) {
+        try {
+          const cita = JSON.parse(citaGuardada);
+          if (esFechaValida(cita.fecha)) {
+            mostrarConfirmacion(cita.fecha, cita.hora, cita.pelicula);
+            return true;
+          } else {
+            localStorage.removeItem('spiderCita');
+          }
+        } catch(e) {}
+      }
+      return false;
+    }
+
+    const citaCargada = cargarCitaGuardada();
+    if (!citaCargada) {
+      formularioDiv.style.display = 'block';
+      confirmacionDiv.style.display = 'none';
+      inputFecha.value = '';
+    }
+  })();
+</script>
+</body>
+</html>
